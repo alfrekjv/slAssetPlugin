@@ -1,12 +1,12 @@
 <?php
 
 /**
- * slAssetPlugin configuration.
+ * slAssetPlugin cxonfigures application to use YUI Compressor..
  * 
  * @package     slAssetPlugin
  * @subpackage  config
  * @author      Senico Labs, LLC
- * @version     SVN: $Id: PluginConfiguration.class.php 17207 2009-04-10 15:36:26Z Kris.Wallsmith $
+ * @version     1.0.0
  */
 class slAssetPluginConfiguration extends sfPluginConfiguration
 {
