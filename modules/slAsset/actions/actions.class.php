@@ -26,5 +26,5 @@ class ggAsseticActions extends sfActions
     {
       throw new sfError404Exception($e->getMessage());
     }
-  } 
+  }
 }

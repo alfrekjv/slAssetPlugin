@@ -96,7 +96,7 @@ class slYUICompressor
     $input_hash = sha1($this->string);
     $file       = $this->temp_files_dir . '/' . $input_hash . '.txt';
     $fh         = fopen($file, 'w') or die("Can't create new file");
-    $type		= (strtolower($this->options['type']) == "css" ? "css" : "js");
+    $type       = (strtolower($this->options['type']) == "css" ? "css" : "js");
     $charset    = isset($this->options['charset']) ? $this->options['charset'] : 'UTF-8';
         
     fwrite($fh, $this->string);
