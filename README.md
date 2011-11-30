@@ -43,7 +43,7 @@ In your app.tml file you specify the files that have to be compressed and includ
 	        version: 0
 	    options:
 	      linebreak: false
-              verbose: false
+	      verbose: false
 	      nomunge: false
 	      semi: false
 	      nooptimize: false
