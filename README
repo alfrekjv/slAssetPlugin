@@ -1,0 +1,4 @@
+
+slAssetPlugin
+
+This plugin uses as module for combining files and partials as one javascript or css asset. This plugin has a task allowing you to combine and minify (YUI) files and partials into one javascript or css file. 
