@@ -1,10 +1,11 @@
 <?php
 /**
-* ggAsseticHelper handles the Assetic js and css.
+* slAssetHelper handles the js and css files.
 *
-* @package ggAsseticPlugin
+* @package slAssetPlugin
 * @subpackage helper
-* @author Alfredo Juarez for Senico Labs, LLC <alfredo.juarez@mxforce.com>
+* @author Senico Labs, LLC
+* @author Alfredo Juarez <alfredo.juarez@mxforce.com>
 * @version 1.0.0
 */
 
@@ -14,11 +15,22 @@
 function sl_use_javascript($js)
 {
   $config = sfConfig::get('app_sl_asset_javascript');
+  $env    = sfConfig::get('sf_environment');
   
-  if (isset($config[$js]['version']) && $config[$js]['version'] > 0) {
-   use_javascript($js.'.'.$config[$js]['version'].'.min.js');
-  } else {
-    use_javascript(url_for('@asset_js?name='.$js));
+  if ($env == 'prod')
+  {
+    if (isset($config[$js]['version']) && $config[$js]['version'] > 0) 
+    {
+      use_javascript($js.'.'.$config[$js]['version'].'.min.js');
+    }
+    else
+    {
+      use_javascript($js.'.min.js');
+    }
+  }
+  else
+  {
+    use_javascript($js.'.js');
   }
 }
 
@@ -28,10 +40,21 @@ function sl_use_javascript($js)
 function sl_use_stylesheet($css)
 {
   $config = sfConfig::get('app_sl_asset_css');
+  $env    = sfConfig::get('sf_environment');
   
-  if (isset($config[$css]['version']) && $config[$css]['version'] > 0) {
-   use_stylesheet($css.'.'.$config[$css]['version'].'.min.css');
-  } else {
-    use_stylesheet(url_for('@asset_css?name='.$css), '', array('media' => 'all'));
+  if ($env == 'prod')
+  {
+    if (isset($config[$css]['version']) && $config[$css]['version'] > 0) 
+    {
+      use_stylesheet($css.'.'.$config[$css]['version'].'.min.css');
+    }
+    else
+    {
+      use_stylesheet($css.'.min.css');
+    }
+  }
+  else
+  {
+    use_stylesheet($css.'.css');
   }
 }

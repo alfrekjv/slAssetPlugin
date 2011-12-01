@@ -6,6 +6,7 @@
  * @package     slAssetPlugin
  * @subpackage  config
  * @author      Senico Labs, LLC
+ * @author      Alfredo Juarez <alfredo.juarez@mxforce.com>
  * @version     1.0.0
  */
 class slAssetPluginConfiguration extends sfPluginConfiguration

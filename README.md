@@ -15,6 +15,8 @@ Use this to install as a plugin in a symfony app using git clone:
 	public function setup()
 	{
 		$this->enablePlugins('slAssetPlugin');
+
+
 	}
 
 ## Configuration ##
@@ -112,3 +114,21 @@ To combine and compress only the javascript files for the frontend application, 
 To combine and compress only the css files for the frontend application, run:
 
 	php symfony senico:compress frontend --type=css
+
+## Workflow ##
+
+1) Configure your app.yaml as described before.
+2) Execute the task to compress the files.
+3) Use the helper functions on a view or layout file to include your files.
+
+  <?php sl_use_stylesheet('main'); ?>
+  <?php sl_use_javascript('main'); ?>
+
+If you are on development mode, it would use the uncompressed files, else, if you're on production mode it'll include the compressed file bundles.
+
+# Credits #
+
+This plugin was developed by:
+
+Senico Labs, LLC
+www.senicolabs.com

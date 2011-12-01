@@ -1,5 +1,15 @@
 <?php
 
+/**
+* senicoAssetTask compress files using the YUI Compressor.
+*
+* @package ggAsseticPlugin
+* @subpackage task
+* @author Senico Labs, LLC
+* @author Alfredo Juarez <alfredo.juarez@mxforce.com>
+* @version 1.0.0
+*/
+
 class senicoAssetTask extends sfBaseTask
 {
   
