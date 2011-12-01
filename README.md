@@ -121,8 +121,8 @@ To combine and compress only the css files for the frontend application, run:
 2) Execute the task to compress the files.
 3) Use the helper functions on a view or layout file to include your files.
 
-  <?php sl_use_stylesheet('main'); ?>
-  <?php sl_use_javascript('main'); ?>
+	<?php sl_use_stylesheet('main'); ?>
+	<?php sl_use_javascript('main'); ?>
 
 If you are on development mode, it would use the uncompressed files, else, if you're on production mode it'll include the compressed file bundles.
 
