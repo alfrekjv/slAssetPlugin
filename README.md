@@ -118,7 +118,9 @@ To combine and compress only the css files for the frontend application, run:
 ## Workflow ##
 
 1) Configure your app.yaml as described before.
+
 2) Execute the task to compress the files.
+
 3) Use the helper functions on a view or layout file to include your files.
 
 	<?php sl_use_stylesheet('main'); ?>
@@ -131,4 +133,5 @@ If you are on development mode, it would use the uncompressed files, else, if yo
 This plugin was developed by:
 
 Senico Labs, LLC
+
 www.senicolabs.com
