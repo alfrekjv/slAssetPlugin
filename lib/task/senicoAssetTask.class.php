@@ -5,7 +5,7 @@ class senicoAssetTask extends sfBaseTask
   
   protected $_options = array
             (
-				'type'       => null,
+                'type'       => null,
                 'linebreak'  => false,
                 'verbose'    => false,
                 'nomunge'    => false,
@@ -34,7 +34,7 @@ class senicoAssetTask extends sfBaseTask
     $this->name                 = 'compress';
     $this->briefDescription     = 'Compress Javascript and CSS Files';
     $this->detailedDescription  = <<<EOF
-The [senico:asset|INFO] task uses the YUICompressor to minify css/javascript files.
+The [senico:compress|INFO] task uses the YUICompressor to minify css/javascript files.
 type options = all/css/javascript
 Call it with:
 
