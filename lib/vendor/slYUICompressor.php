@@ -11,21 +11,21 @@ class slYUICompressor
 {
     
   // absolute path to YUI jar file.
-  private static  $jar_path;
-  private static  $temp_files_dir;
-  private         $files    = array();
-  private         $string   = '';
-  private         $options  = array
-                              (
-                                'type'    => 'js',
-                                'linebreak'  => false,
-                                'verbose'    => false,
-                                'nomunge'    => false,
-                                'semi'       => false,
-                                'nooptimize' => false,
-                                'tofile'     => true,
-                                'filename'   => ''
-                              );
+  private $jar_path;
+  private $temp_files_dir;
+  private $files    = array();
+  private $string   = '';
+  private $options  = array
+                      (
+                        'type'    => 'js',
+                        'linebreak'  => false,
+                        'verbose'    => false,
+                        'nomunge'    => false,
+                        'semi'       => false,
+                        'nooptimize' => false,
+                        'tofile'     => true,
+                        'filename'   => ''
+                      );
     
   // construct with a path to the YUI jar and a path to a place to put temporary files
   function __construct($jar_path, $temp_files_dir, $options = array())
