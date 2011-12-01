@@ -58,6 +58,12 @@ class slYUICompressor
     
     array_push($this->files, $file);
   }
+  
+  function clear() 
+  {
+    $this->files  = array();
+    $this->string = '';
+  }
     
   // add a string or array of strings to be compressed
   function addString($string)

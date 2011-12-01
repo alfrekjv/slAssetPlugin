@@ -26,10 +26,11 @@ Update the settings.yml file in every application where you want to use this plu
 
 ###Configuring the plugin###
 
-In your app.tml file you specify the files that have to be compressed and included in your collection. The following configuration specifies that in the development environment the main javascript bundle must contain the frontend.js file and The main css bundle must contain two files.
+In your app.yml file you specify the files that have to be compressed and included in your collection. The following configuration specifies that in the development environment the main javascript bundle must contain the frontend.js file, the main css bundle must contain two files and the other css budle must contain one file with version 1.
 
 	dev:
 	  sl_asset:
+	    yuipath: /path/to/yuicompressor.jar
 	    javascript:
 	      main:
 	        files:
@@ -41,15 +42,16 @@ In your app.tml file you specify the files that have to be compressed and includ
 	          - reset.css
 	          - frontend.css
 	        version: 0
+	      other:
+	        files:
+	          - other.css
+	        version: 1
 	    options:
 	      linebreak: false
 	      verbose: false
 	      nomunge: false
 	      semi: false
 	      nooptimize: false
-	      tofile: false
-	      filename: ''
-
 
 ### Options ###
 
@@ -93,7 +95,20 @@ In your app.tml file you specify the files that have to be compressed and includ
       
 	Disable all the built-in micro optimizations.
 
-	Option: tofile and filename
-	YUI Param: -o
-      
-	Specify an output file given it's file name.
+## Compressing the files, task powered ##
+
+This plugin provides a CLI task to combine and compress your asset collections. When you use the task a new file will be generated in the sf_web_dir/js and/or sf_web_dir/css directory combining and minifying the files. A version number is included into the filename if specified.
+
+### Make sure your css and js directories are writable. ###
+
+To combine and compress all assets for the frontend application, run:
+
+	php symfony senico:compress frontend --type=all
+
+To combine and compress only the javascript files for the frontend application, run:
+
+	php symfony senico:compress frontend --type=js
+
+To combine and compress only the css files for the frontend application, run:
+
+	php symfony senico:compress frontend --type=css
