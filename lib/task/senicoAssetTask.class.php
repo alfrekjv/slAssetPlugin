@@ -103,7 +103,11 @@ EOF;
     
     foreach($js as $script)
     {
-      foreach($script['files'] as $file)
+      if (preg_match('%^https?://%', $file))
+      {
+       $yui->addFile($file); 
+      }
+      else
       {
         $yui->addFile($dir . $file);
       }
@@ -139,7 +143,14 @@ EOF;
     {
       foreach($script['files'] as $file)
       {
-        $yui->addFile($dir . $file);
+        if (preg_match('%^https?://%', $file))
+        {
+         $yui->addFile($file); 
+        }
+        else
+        {
+          $yui->addFile($dir . $file);
+        }
       }
       
       if (isset($script['version']) && $script['version'] != 0)
