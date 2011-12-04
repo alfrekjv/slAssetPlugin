@@ -62,7 +62,6 @@ function sl_include_javascripts() {
     $html = '';
     foreach($config as $position => $script)
     {
-      echo $position;
       if ($position == $context || $position == 'default') 
       {
         if (isset($script['version']) && $script['version'] != 0)
