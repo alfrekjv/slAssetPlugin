@@ -15,8 +15,6 @@ Use this to install as a plugin in a symfony app using git clone:
 	public function setup()
 	{
 		$this->enablePlugins('slAssetPlugin');
-
-
 	}
 
 ## Configuration ##
@@ -28,28 +26,38 @@ Update the settings.yml file in every application where you want to use this plu
 
 ###Configuring the plugin###
 
-In your app.yml file you specify the files that have to be compressed and included in your collection. The following configuration specifies that in the development environment the main javascript bundle must contain the frontend.js file, the main css bundle must contain two files and the other css budle must contain one file with version 1.
+In your app.yml file you specify the files that have to be compressed and included in your collection. 
 
-	dev:
-	  sl_asset:
-	    yuipath: /path/to/yuicompressor.jar
+	sl_asset:
+	    yuipath: bin/yuicompressor-2.4.7.jar # path to the yuicompressor jar file.
+	    dir: build/                          # dir where the compress files will be stored.
 	    javascript:
-	      main:
+	      default:                           # To be loaded on the Default Module
+	        name: main                       # name of the bundle.
+	        files: 
+	          - lib/jquery-1.6.4.min.js
+	          - main.js
+	        version: 0
+	      default/index:                     # to be loaded on the default/index action.
+	        name: index
 	        files:
-	          - frontend.js
+	          - lib/jquery-ui-1.8.16.custom.min.js
+	          - login.js
 	        version: 0
 	    css:
-	      main:
+	      default:
+	        name: main
 	        files:
-	          - reset.css
-	          - frontend.css
+	          - lib/bootstrap.min.css
+	          - main.css
 	        version: 0
-	      other:
+	      default/index:
+	        name: index
 	        files:
-	          - other.css
-	        version: 1
+	          - lib/cupertino/jquery-ui-1.8.16.custom.css
+	        version: 0
 	    options:
-	      linebreak: false
+	      linebreak: 0
 	      verbose: false
 	      nomunge: false
 	      semi: false
@@ -121,12 +129,14 @@ To combine and compress only the css files for the frontend application, run:
 
 2) Execute the task to compress the files.
 
-3) Use the helper functions on a view or layout file to include your files.
+3) Use the helper functions on your layout file to include the files:
 
-	<?php sl_use_stylesheet('main'); ?>
-	<?php sl_use_javascript('main'); ?>
+	<?php sl_include_stylesheet(); ?>
+	<?php sl_include_javascript(); ?>
 
-If you are on development mode, it would use the uncompressed files, else, if you're on production mode it'll include the compressed file bundles.
+If you are on development mode, it would use the uncompressed files, else, if you're on production mode it will include the compressed file bundles.
+
+Note: A good practice is to generate a file bundle for each module/action where you have defined assets as on your view.yml file.
 
 # Credits #
 
