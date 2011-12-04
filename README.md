@@ -30,7 +30,7 @@ In your app.yml file you specify the files that have to be compressed and includ
 
 	sl_asset:
 	    yuipath: bin/yuicompressor-2.4.7.jar # path to the yuicompressor jar file.
-	    dir: build/                          # dir where the compress files will be stored.
+	    dir: build/                          # Optional: dir where the compressed files will be stored -- if not defined, it'll store the files on the sf_web/css dir.
 	    javascript:
 	      default:                           # To be loaded on the Default Module
 	        name: main                       # name of the bundle.
