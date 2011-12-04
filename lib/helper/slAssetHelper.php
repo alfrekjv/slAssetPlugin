@@ -15,9 +15,7 @@ function sl_include_stylesheets() {
   $subdir   = sfConfig::get('app_sl_asset_dir');
   $env      = sfConfig::get('sf_environment');
   $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
-  
-  echo $context;
-  
+   
   if ($env == 'prod')
   {
     sfConfig::set('symfony.asset.stylesheets_included', true);
