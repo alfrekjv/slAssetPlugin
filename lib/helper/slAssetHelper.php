@@ -11,29 +11,33 @@
 
 function sl_include_stylesheets() {
   
-  $config = sfConfig::get('app_sl_asset_css');
-  $subdir = sfConfig::get('app_sl_asset_dir');
-  $env    = sfConfig::get('sf_environment');
+  $config   = sfConfig::get('app_sl_asset_css');
+  $subdir   = sfConfig::get('app_sl_asset_dir');
+  $env      = sfConfig::get('sf_environment');
+  $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
+  
+  echo $context;
   
   if ($env == 'prod')
   {
     sfConfig::set('symfony.asset.stylesheets_included', true);
 
     $html = '';
-    foreach($config as $name => $script)
+    foreach($config as $position => $script)
     {
-      if (isset($script['version']) && $script['version'] != 0)
+      if ($position == $context || $position == 'default') 
       {
-        $filename = $name . '.' . $script['version'] . '.min.css';
+        if (isset($script['version']) && $script['version'] != 0)
+        {
+          $filename = $script['name'] . '.' . $script['version'] . '.min.css';
+        }
+        else
+        {
+          $filename = $script['name'] . '.min.css';
+        }
+        
+        $html .= stylesheet_tag( $subdir . $filename, array());
       }
-      else
-      {
-        $filename = $name . '.min.css';
-      }
-      
-      //echo $filename;
-      
-      $html .= stylesheet_tag( $subdir . $filename, array());
     }
 
     echo $html;
@@ -46,27 +50,32 @@ function sl_include_stylesheets() {
 
 function sl_include_javascripts() {
   
-  $config = sfConfig::get('app_sl_asset_javascript');
-  $subdir = sfConfig::get('app_sl_asset_dir');
-  $env    = sfConfig::get('sf_environment');
+  $config   = sfConfig::get('app_sl_asset_javascript');
+  $subdir   = sfConfig::get('app_sl_asset_dir');
+  $env      = sfConfig::get('sf_environment');
+  $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
   
   if ($env == 'prod')
   {
     sfConfig::set('symfony.asset.javascripts_included', true);
 
     $html = '';
-    foreach($config as $name => $script)
+    foreach($config as $position => $script)
     {
-      if (isset($script['version']) && $script['version'] != 0)
+      echo $position;
+      if ($position == $context || $position == 'default') 
       {
-        $filename = $name . '.' . $script['version'] . '.min.js';
+        if (isset($script['version']) && $script['version'] != 0)
+        {
+          $filename = $script['name'] . '.' . $script['version'] . '.min.js';
+        }
+        else
+        {
+          $filename = $script['name'] . '.min.js';
+        }
+
+        $html .= javascript_include_tag($subdir . $filename, array());
       }
-      else
-      {
-        $filename = $name . '.min.js';
-      }
-      
-      $html .= javascript_include_tag($subdir . $filename, array());
     }
 
     echo $html;

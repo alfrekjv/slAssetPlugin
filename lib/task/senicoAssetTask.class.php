@@ -55,16 +55,16 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    $this->yuipath    = sfConfig::get('app_sl_asset_yuipath');
-    $this->dir        = sfConfig::get('sf_web_dir');
-    $this->subdir     = sfConfig::get('app_sl_asset_dir');
-    $cfOptions        = sfConfig::get('app_sl_asset_options');
+    $this->yuipath                = sfConfig::get('app_sl_asset_yuipath');
+    $this->dir                    = sfConfig::get('sf_web_dir');
+    $this->subdir                 = sfConfig::get('app_sl_asset_dir');
+    $cfOptions                    = sfConfig::get('app_sl_asset_options');
     
-    $this->_options['linebreak']  = isset($cfOptions['linebreak']) ? $cfOptions['linebreak'] : $this->_options['linebreak'];
-    $this->_options['verbose']    = $cfOptions['verbose'];
-    $this->_options['nomunge']    = $cfOptions['nomunge'];
-    $this->_options['semi']       = $cfOptions['semi'];
-    $this->_options['nooptimize'] = $cfOptions['nooptimize'];
+    $this->_options['linebreak']  = isset($cfOptions['linebreak'])  ? $cfOptions['linebreak']   : $this->_options['linebreak'];
+    $this->_options['verbose']    = isset($cfOptions['verbose'])    ? $cfOptions['verbose']     : $this->_options['verbose'];
+    $this->_options['nomunge']    = isset($cfOptions['nomunge'])    ? $cfOptions['nomunge']     : $this->_options['nomunge'];
+    $this->_options['semi']       = isset($cfOptions['semi'])       ? $cfOptions['semi']        : $this->_options['semi'];
+    $this->_options['nooptimize'] = isset($cfOptions['nooptimize']) ? $cfOptions['nooptimize']  : $this->_options['nooptimize'];
     
     print "Starting process...\n";
     
@@ -99,9 +99,9 @@ EOF;
     $output           = null;
     $yui              = new slYUICompressor($this->yuipath,$this->dir . '/tmp',$options);
     $dir              = $this->dir . "/js/";
-    $subdir           = $this->subdir;
+    $subdir           = $this->subdir;   
     
-    foreach($js as $name => $script)
+    foreach($js as $script)
     {
       foreach($script['files'] as $file)
       {
@@ -110,11 +110,11 @@ EOF;
       
       if (isset($script['version']) && $script['version'] != 0)
       {
-        $filename = $name.'.'.$script['version'].'.min.js';
+        $filename = $script['name'].'.'.$script['version'].'.min.js';
       }
       else
       {
-        $filename = $name.'.min.js';
+        $filename = $script['name'].'.min.js';
       }
       
       $yui->setOption('filename', $dir . $subdir . $filename);
@@ -135,7 +135,7 @@ EOF;
     $dir              = $this->dir . "/css/";
     $subdir           = $this->subdir;
     
-    foreach($css as $name => $script)
+    foreach($css as $script)
     {
       foreach($script['files'] as $file)
       {
@@ -144,11 +144,11 @@ EOF;
       
       if (isset($script['version']) && $script['version'] != 0)
       {
-        $filename = $name.'.'.$script['version'].'.min.css';
+        $filename = $script['name'].'.'.$script['version'].'.min.css';
       }
       else
       {
-        $filename = $name.'.min.css';
+        $filename = $script['name'].'.min.css';
       }
       
       $yui->setOption('filename', $dir . $subdir . $filename);
