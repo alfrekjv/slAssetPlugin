@@ -15,7 +15,8 @@ class slWebResponse extends sfWebResponse
 {
   public function getJavascripts($position = self::ALL)
   {
-    $scripts = array();
+    $config   = sfConfig::get('app_sl_asset_javascript');
+    $scripts  = array();
     
     foreach(parent::getJavascripts($position) as $js => $opt)
     {

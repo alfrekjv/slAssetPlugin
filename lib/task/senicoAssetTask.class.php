@@ -21,12 +21,13 @@ class senicoAssetTask extends sfBaseTask
                 'nomunge'    => false,
                 'semi'       => false,
                 'nooptimize' => false,
-                'tofile'	 => true,
+                'tofile'     => true,
                 'filename'   => null
             );
   
   protected $yuipath  = '';
   protected $dir      = '';
+  protected $subdir   = '';
   
   protected function configure()
   {
@@ -56,9 +57,10 @@ EOF;
   {
     $this->yuipath    = sfConfig::get('app_sl_asset_yuipath');
     $this->dir        = sfConfig::get('sf_web_dir');
+    $this->subdir     = sfConfig::get('app_sl_asset_dir');
     $cfOptions        = sfConfig::get('app_sl_asset_options');
     
-    $this->_options['linebreak']  = $cfOptions['linebreak'];
+    $this->_options['linebreak']  = isset($cfOptions['linebreak']) ? $cfOptions['linebreak'] : $this->_options['linebreak'];
     $this->_options['verbose']    = $cfOptions['verbose'];
     $this->_options['nomunge']    = $cfOptions['nomunge'];
     $this->_options['semi']       = $cfOptions['semi'];
@@ -97,12 +99,13 @@ EOF;
     $output           = null;
     $yui              = new slYUICompressor($this->yuipath,$this->dir . '/tmp',$options);
     $dir              = $this->dir . "/js/";
+    $subdir           = $this->subdir;
     
     foreach($js as $name => $script)
     {
       foreach($script['files'] as $file)
       {
-        $yui->addFile($dir .$file);
+        $yui->addFile($dir . $file);
       }
       
       if (isset($script['version']) && $script['version'] != 0)
@@ -114,7 +117,7 @@ EOF;
         $filename = $name.'.min.js';
       }
       
-      $yui->setOption('filename', $dir . $filename);
+      $yui->setOption('filename', $dir . $subdir . $filename);
       $output .= $yui->compress();
       $yui->clear();
     }
@@ -130,6 +133,7 @@ EOF;
     $output           = null;
     $yui              = new slYUICompressor($this->yuipath,$this->dir . '/tmp',$options);
     $dir              = $this->dir . "/css/";
+    $subdir           = $this->subdir;
     
     foreach($css as $name => $script)
     {
@@ -144,10 +148,10 @@ EOF;
       }
       else
       {
-        $filename = $name.'.min.js';
+        $filename = $name.'.min.css';
       }
       
-      $yui->setOption('filename', $dir . $filename);
+      $yui->setOption('filename', $dir . $subdir . $filename);
       $output .= $yui->compress();
       $yui->clear();
     }

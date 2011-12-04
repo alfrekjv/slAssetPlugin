@@ -92,6 +92,8 @@ class slYUICompressor
         {
           throw new Exception("Cannot read from uploaded file");
         }
+        
+        $this->string .= ";\n";
       }
     }
     catch (Exception $e)
