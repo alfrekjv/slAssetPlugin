@@ -97,6 +97,7 @@ EOF;
     $options          = $this->_options;
     $options['type']  = 'js';
     $js               = sfConfig::get('app_sl_asset_javascript');
+    $gzip             = sfConfig::get('app_sl_asset_gzip');
     $output           = null;
     $yui              = new slYUICompressor($this->yuipath,$this->dir . '/tmp',$options);
     $dir              = $this->dir . "/js/";
@@ -136,12 +137,15 @@ EOF;
       $yui->clear();
       
       // gzip stuff
-      $gzip = $slgzcompress->compress($options['level']);
-      $file = $dir . $subdir . $gfilename;
-      $fh   = fopen($file, 'w') or die("Can't create new file");
-      
-      fwrite($fh, $gzip);
-      $slgzcompress->clear();
+      if ($gzip)
+      {
+        $gzipstr  = $slgzcompress->compress($options['level']);
+        $file     = $dir . $subdir . $gfilename;
+        $fh       = fopen($file, 'w') or die("Can't create new file");
+
+        fwrite($fh, $gzipstr);
+        $slgzcompress->clear();
+      }
     }
     
     return $output;
@@ -189,12 +193,15 @@ EOF;
       $yui->clear();
       
       // gzip stuff
-      $gzip = $slgzcompress->compress($options['level']);
-      $file = $dir . $subdir . $gfilename;
-      $fh   = fopen($file, 'w') or die("Can't create new file");
-      
-      fwrite($fh, $gzip);
-      $slgzcompress->clear();
+      if ($gzip)
+      {
+        $gzipstr  = $slgzcompress->compress($options['level']);
+        $file     = $dir . $subdir . $gfilename;
+        $fh       = fopen($file, 'w') or die("Can't create new file");
+
+        fwrite($fh, $gzipstr);
+        $slgzcompress->clear();
+      }
     }
     
     return $output;
