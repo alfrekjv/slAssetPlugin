@@ -15,7 +15,8 @@ function sl_include_stylesheets() {
   $subdir   = sfConfig::get('app_sl_asset_dir');
   $env      = sfConfig::get('sf_environment');
   $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
-   
+  $cdn_host = isset(sfConfig::get('app_cdn_host')) ? "http://" . sfConfig::get('app_cdn_host') : '';
+  
   if ($env == 'prod')
   {
     sfConfig::set('symfony.asset.stylesheets_included', true);
@@ -34,7 +35,7 @@ function sl_include_stylesheets() {
           $filename = $script['name'] . '.min.css';
         }
         
-        $html .= stylesheet_tag( $subdir . $filename, array());
+        $html .= stylesheet_tag( $cdn_host . $subdir . $filename, array());
       }
     }
 
@@ -52,6 +53,7 @@ function sl_include_javascripts() {
   $subdir   = sfConfig::get('app_sl_asset_dir');
   $env      = sfConfig::get('sf_environment');
   $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
+  $cdn_host = isset(sfConfig::get('app_cdn_host')) ? "http://" . sfConfig::get('app_cdn_host') : '';
   
   if ($env == 'prod')
   {
@@ -71,7 +73,7 @@ function sl_include_javascripts() {
           $filename = $script['name'] . '.min.js';
         }
 
-        $html .= javascript_include_tag($subdir . $filename, array());
+        $html .= javascript_include_tag( $cdn_host . $subdir . $filename, array());
       }
     }
 
