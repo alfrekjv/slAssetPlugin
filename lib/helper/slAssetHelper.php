@@ -75,7 +75,7 @@ function sl_include_javascripts() {
           $filename = $script['name'] . '.min.js';
         }
 
-        $html .= javascript_include_tag( $subdir . $filename, array());
+        $html .= javascript_include_tag( $cdn . $subdir . $filename, array());
       }
     }
 
