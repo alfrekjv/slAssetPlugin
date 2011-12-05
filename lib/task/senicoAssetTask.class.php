@@ -123,12 +123,12 @@ EOF;
       if (isset($script['version']) && $script['version'] != 0)
       {
         $filename   = $script['name'].'.'.$script['version'].'.min.js';
-        $gfilename  = $script['name'].'.'.$script['version'].'.jgz';
+        $gfilename  = $script['name'].'.'.$script['version'].'.js.jgz';
       }
       else
       {
         $filename = $script['name'].'.min.js';
-        $gfilename  = $script['name'].'.jgz';
+        $gfilename  = $script['name'].'.js.jgz';
       }
       
       // yuicompressor stuff
@@ -182,12 +182,12 @@ EOF;
       if (isset($script['version']) && $script['version'] != 0)
       {
         $filename   = $script['name'].'.'.$script['version'].'.min.css';
-        $gfilename  = $script['name'].'.'.$script['version'].'.jgz';
+        $gfilename  = $script['name'].'.'.$script['version'].'.css.jgz';
       }
       else
       {
         $filename   = $script['name'].'.min.css';
-        $gfilename  = $script['name'].'.jgz';
+        $gfilename  = $script['name'].'.css.jgz';
       }
       
       $yui->setOption('filename', $dir . $subdir . $filename);
