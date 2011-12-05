@@ -156,6 +156,7 @@ EOF;
     $options          = $this->_options;
     $options['type']  = 'css';
     $css              = sfConfig::get('app_sl_asset_css');
+    $gzip             = sfConfig::get('app_sl_asset_gzip');
     $output           = null;
     $yui              = new slYUICompressor($this->yuipath,$this->dir . '/tmp',$options);
     $dir              = $this->dir . "/css/";
