@@ -9,7 +9,8 @@
 * @version 1.0.0
 */
 
-function sl_include_stylesheets() {
+function sl_include_stylesheets() 
+{
   
   $config   = sfConfig::get('app_sl_asset_css');
   $subdir   = sfConfig::get('app_sl_asset_dir');
@@ -42,18 +43,35 @@ function sl_include_stylesheets() {
         
         $html .= stylesheet_tag( $cdn . $subdir . $filename, array());
       }
+      
+      foreach( $script['files'] as $file ) 
+      {
+        if (preg_match('%^http?://%', $file))
+        {
+          $html .= stylesheet_tag($file, array());
+        }
+      }
     }
 
     echo $html;
   }
   else
   {
-    include_stylesheets();
+    foreach($config as $position => $script)
+    {
+      if ($position == $context || $position == 'default') 
+      {
+        foreach( $script['files'] as $file ) 
+        {
+          $html .= stylesheet_tag($file, array());
+        }
+      }
+    }
   }
 }
 
-function sl_include_javascripts() {
-  
+function sl_include_javascripts() 
+{
   $config   = sfConfig::get('app_sl_asset_javascript');
   $subdir   = sfConfig::get('app_sl_asset_dir');
   $gzip     = sfConfig::get('app_sl_asset_gzip');
@@ -85,13 +103,30 @@ function sl_include_javascripts() {
 
         $html .= javascript_include_tag( $cdn . $subdir . $filename, array());
       }
+      
+      foreach( $script['files'] as $file ) 
+      {
+        if (preg_match('%^http?://%', $file))
+        {
+          $html .= javascript_include_tag($file, array());
+        }
+      }
     }
 
     echo $html;
   }
   else
   {
-    include_javascripts();
+    foreach($config as $position => $script)
+    {
+      if ($position == $context || $position == 'default') 
+      {
+        foreach( $script['files'] as $file ) 
+        {
+          $html .= javascript_include_tag($file, array());
+        }
+      }
+    }
   }
 }
 

@@ -108,11 +108,7 @@ EOF;
     {
       foreach($script['files'] as $file)
       {
-        if (preg_match('%^http?://%', $file))
-        {
-          $yui->addFile($file);
-        }
-        else
+        if (!preg_match('%^http?://%', $file))
         {
           $yui->addFile($dir . $file);
         }
@@ -164,11 +160,7 @@ EOF;
     {
       foreach($script['files'] as $file)
       {
-        if (preg_match('%^http?://%', $file))
-        {
-          $yui->addFile($file);
-        }
-        else
+        if (!preg_match('%^http?://%', $file))
         {
           $yui->addFile($dir . $file);
         }
