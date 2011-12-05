@@ -54,12 +54,13 @@ class slGZCompress
    *
    * Uses gzcompress() to gzip the file bundles.
    * 
+   * @param String The Compressed filename.
    * @param integer $level The level of compression. Can be given as 0 for no compression up to 9 for maximum compression.
    * @return string The compress string.
    * @author Senico Labs, LLC
    * @author Alfredo Juarez
    */
-  function compress($level = 9)
+  function compress($filename, $level = 9)
   {
     // read the input
     try
@@ -79,6 +80,10 @@ class slGZCompress
       echo $e->getMessage();
     }
     
-    return gzcompress($this->string, $level);
+    $gz = gzopen($filename, 'w');
+    gzwrite($gz, $this->string);
+    gzclose($gz);
+    
+    //return gzcompress($this->string, $level);
   }
 }
