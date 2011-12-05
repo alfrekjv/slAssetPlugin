@@ -160,6 +160,7 @@ EOF;
     $yui              = new slYUICompressor($this->yuipath,$this->dir . '/tmp',$options);
     $dir              = $this->dir . "/css/";
     $subdir           = $this->subdir;
+    $slgzcompress     = new slGZCompress;
     
     foreach($css as $script)
     {
