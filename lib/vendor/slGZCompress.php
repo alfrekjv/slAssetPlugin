@@ -64,10 +64,10 @@ class slGZCompress
    * @author Senico Labs, LLC
    * @author Alfredo Juarez
    */
-  function compress($output = '', $filename = '', $level = 9)
+  function compress($filename = '', $level = 9)
   {
     // read the input
-    /*try
+    try
     {
       foreach ($this->files as $file) 
       {
@@ -82,9 +82,7 @@ class slGZCompress
     catch (Exception $e)
     {
       echo $e->getMessage();
-    }*/
-    
-    $this->string = $output;
+    }
     
     $input_hash = sha1($this->string);
     $file       = $this->temp_files_dir . '/' . $input_hash . '.txt';

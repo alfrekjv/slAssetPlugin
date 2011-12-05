@@ -111,12 +111,10 @@ EOF;
         if (preg_match('%^http?://%', $file))
         {
           $yui->addFile($file);
-          $slgzcompress->addFile($file);
         }
         else
         {
           $yui->addFile($dir . $file);
-          $slgzcompress->addFile($dir . $file);
         }
       }
       
@@ -139,9 +137,12 @@ EOF;
       // gzip stuff
       if ($gzip)
       {
-        $slgzcompress->compress($output, $dir . $subdir . $gfilename,$args['level']);
+        $slgzcompress->addFile($dir . $subdir . $filename);
+        $slgzcompress->compress($dir . $subdir . $gfilename,$args['level']);
         $slgzcompress->clear();
       }
+      
+      $output = '';
     }
     
     return $output;
@@ -166,12 +167,10 @@ EOF;
         if (preg_match('%^http?://%', $file))
         {
           $yui->addFile($file);
-          $slgzcompress->addFile($file);
         }
         else
         {
           $yui->addFile($dir . $file);
-          $slgzcompress->addFile($dir . $file);
         }
       }
       
@@ -193,9 +192,12 @@ EOF;
       // gzip stuff
       if ($gzip)
       {
-        $slgzcompress->compress($output, $dir . $subdir . $gfilename,$args['level']);
+        $slgzcompress->addFile($dir . $subdir . $filename);
+        $slgzcompress->compress($dir . $subdir . $gfilename,$args['level']);
         $slgzcompress->clear();
       }
+      
+      $output = '';
     }
     
     return $output;
