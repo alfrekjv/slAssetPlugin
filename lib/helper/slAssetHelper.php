@@ -14,11 +14,13 @@ function sl_include_stylesheets() {
   $config   = sfConfig::get('app_sl_asset_css');
   $subdir   = sfConfig::get('app_sl_asset_dir');
   $env      = sfConfig::get('sf_environment');
+  $gzip     = sfConfig::get('app_sl_asset_gzip');
   $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
   $cdn_host = sfConfig::get('app_cdn_host');
   $secured  = sfContext::getInstance()->getRequest()->isSecure();
   $protocol = $secured ? 'https://' : 'http://';
   $cdn      = isset($cdn_host) ? $protocol . $cdn_host . "/css/" : '';
+  $ext      = !$gzip && stripos(sfContext::getInstance()->getRequest()->getHeader('Accept-Encoding'),'gzip') === false ? '.min.css' : '.jgz';
   
   if ($env == 'prod')
   {
@@ -31,11 +33,11 @@ function sl_include_stylesheets() {
       {
         if (isset($script['version']) && $script['version'] != 0)
         {
-          $filename = $script['name'] . '.' . $script['version'] . '.min.css';
+          $filename = $script['name'] . '.' . $script['version'] . $ext;
         }
         else
         {
-          $filename = $script['name'] . '.min.css';
+          $filename = $script['name'] . $ext;
         }
         
         $html .= stylesheet_tag( $cdn . $subdir . $filename, array());
@@ -54,12 +56,14 @@ function sl_include_javascripts() {
   
   $config   = sfConfig::get('app_sl_asset_javascript');
   $subdir   = sfConfig::get('app_sl_asset_dir');
+  $gzip     = sfConfig::get('app_sl_asset_gzip');
   $env      = sfConfig::get('sf_environment');
   $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
   $cdn_host = sfConfig::get('app_cdn_host');
   $secured  = sfContext::getInstance()->getRequest()->isSecure();
   $protocol = $secured ? 'https://' : 'http://';
   $cdn      = isset($cdn_host) ? $protocol . $cdn_host . "/js/" : '';
+  $ext      = !$gzip && stripos(sfContext::getInstance()->getRequest()->getHeader('Accept-Encoding'),'gzip') === false ? '.min.css' : '.jgz';
   
   if ($env == 'prod')
   {
@@ -72,11 +76,11 @@ function sl_include_javascripts() {
       {
         if (isset($script['version']) && $script['version'] != 0)
         {
-          $filename = $script['name'] . '.' . $script['version'] . '.min.js';
+          $filename = $script['name'] . '.' . $script['version'] . $ext;
         }
         else
         {
-          $filename = $script['name'] . '.min.js';
+          $filename = $script['name'] . $ext;
         }
 
         $html .= javascript_include_tag( $cdn . $subdir . $filename, array());
