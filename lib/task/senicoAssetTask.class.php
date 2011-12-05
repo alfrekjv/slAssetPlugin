@@ -92,7 +92,7 @@ EOF;
     print "Files compressed succesully.\n";
   }
   
-  private function processJs($options = '') 
+  private function processJs($args) 
   {
     $options          = $this->_options;
     $options['type']  = 'js';
@@ -139,7 +139,7 @@ EOF;
       // gzip stuff
       if ($gzip)
       {
-        $gzipstr  = $slgzcompress->compress($options['level']);
+        $gzipstr  = $slgzcompress->compress($args['level']);
         $file     = $dir . $subdir . $gfilename;
         $fh       = fopen($file, 'w') or die("Can't create new file");
 
@@ -151,7 +151,7 @@ EOF;
     return $output;
   }
   
-  private function processCss($options) 
+  private function processCss($args)
   {
     $options          = $this->_options;
     $options['type']  = 'css';
@@ -195,7 +195,7 @@ EOF;
       // gzip stuff
       if ($gzip)
       {
-        $gzipstr  = $slgzcompress->compress($options['level']);
+        $gzipstr  = $slgzcompress->compress($args['level']);
         $file     = $dir . $subdir . $gfilename;
         $fh       = fopen($file, 'w') or die("Can't create new file");
 
