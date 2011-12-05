@@ -20,7 +20,7 @@ function sl_include_stylesheets() {
   $secured  = sfContext::getInstance()->getRequest()->isSecure();
   $protocol = $secured ? 'https://' : 'http://';
   $cdn      = isset($cdn_host) ? $protocol . $cdn_host . "/css/" : '';
-  $ext      = !$gzip && stripos(sfContext::getInstance()->getRequest()->getHeader('Accept-Encoding'),'gzip') === false ? '.min.css' : '.jgz';
+  $ext      = !$gzip && stripos(sfContext::getInstance()->getRequest()->getHeader('Accept-Encoding'),'gzip') === false ? '.min.css' : '.css.jgz';
   
   if ($env == 'prod')
   {
@@ -63,7 +63,7 @@ function sl_include_javascripts() {
   $secured  = sfContext::getInstance()->getRequest()->isSecure();
   $protocol = $secured ? 'https://' : 'http://';
   $cdn      = isset($cdn_host) ? $protocol . $cdn_host . "/js/" : '';
-  $ext      = !$gzip && stripos(sfContext::getInstance()->getRequest()->getHeader('Accept-Encoding'),'gzip') === false ? '.min.css' : '.jgz';
+  $ext      = !$gzip && stripos(sfContext::getInstance()->getRequest()->getHeader('Accept-Encoding'),'gzip') === false ? '.min.css' : '.js.jgz';
   
   if ($env == 'prod')
   {
