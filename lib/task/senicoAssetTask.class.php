@@ -182,12 +182,12 @@ EOF;
       if (isset($script['version']) && $script['version'] != 0)
       {
         $filename   = $script['name'].'.'.$script['version'].'.min.css';
-        $gfilename  = $script['name'].'.'.$script['version'].'.min.jgz';
+        $gfilename  = $script['name'].'.'.$script['version'].'.jgz';
       }
       else
       {
         $filename   = $script['name'].'.min.css';
-        $gfilename  = $script['name'].'.min.jgz';
+        $gfilename  = $script['name'].'.jgz';
       }
       
       $yui->setOption('filename', $dir . $subdir . $filename);
