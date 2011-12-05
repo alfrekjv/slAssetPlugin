@@ -200,13 +200,13 @@ EOF;
       // gzip stuff
       if ($gzip)
       {
-        $gzipstr  = $slgzcompress->compress($args['level']);
+        /*$gzipstr  = $slgzcompress->compress($args['level']);
         $file     = $dir . $subdir . $gfilename;
         $fh       = fopen($file, 'w') or die("Can't create new file");
 
-        fwrite($fh, $gzipstr);
+        fwrite($fh, $gzipstr);*/
         
-        //$slgzcompress->compress($dir . $subdir . $gfilename,$args['level']);
+        $slgzcompress->compress($dir . $subdir . $gfilename,$args['level']);
         $slgzcompress->clear();
       }
     }
