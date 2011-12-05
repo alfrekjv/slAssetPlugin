@@ -42,13 +42,13 @@ function sl_include_stylesheets()
         }
         
         $html .= stylesheet_tag( $cdn . $subdir . $filename, array());
-      }
-      
-      foreach( $script['files'] as $file ) 
-      {
-        if (preg_match('%^http?://%', $file))
+        
+        foreach( $script['files'] as $file ) 
         {
-          $html .= stylesheet_tag($file, array());
+          if (preg_match('%^http?://%', $file))
+          {
+            $html .= stylesheet_tag($file, array());
+          }
         }
       }
     }
@@ -102,13 +102,13 @@ function sl_include_javascripts()
         }
 
         $html .= javascript_include_tag( $cdn . $subdir . $filename, array());
-      }
-      
-      foreach( $script['files'] as $file ) 
-      {
-        if (preg_match('%^http?://%', $file))
+        
+        foreach( $script['files'] as $file ) 
         {
-          $html .= javascript_include_tag($file, array());
+          if (preg_match('%^http?://%', $file))
+          {
+            $html .= javascript_include_tag($file, array());
+          }
         }
       }
     }
