@@ -38,7 +38,8 @@ class senicoAssetTask extends sfBaseTask
 
     $this->addOptions(array(
       new sfCommandOption('type', null, sfCommandOption::PARAMETER_OPTIONAL, 'The file types to optimize','all'),
-      new sfCommandOption('env', null, sfCommandOption::PARAMETER_OPTIONAL, 'The environment', 'dev')
+      new sfCommandOption('env', null, sfCommandOption::PARAMETER_OPTIONAL, 'The environment', 'dev'),
+      new sfCommandOption('level', null, sfCommandOption::PARAMETER_OPTIONAL, 'The compression level for gzip if enabled', 9)
     ));
 
     $this->namespace            = 'senico';
@@ -71,27 +72,27 @@ EOF;
     if ($options['type'] == 'all')
     {
       print "Compressing javascript files...\n";
-      $this->processJs();
+      $this->processJs($options);
       print "Compressing css files...\n";
-      $this->processCss();
+      $this->processCss($options);
     }
     
     if ($options['type'] == 'css')
     {
       print "Compressing css files...\n";
-      $this->processCss();
+      $this->processCss($options);
     }
     
     if ($options['type'] == 'js')
     {
       print "Compressing javascript files...\n";
-      $this->processJs();
+      $this->processJs($options);
     }
     
     print "Files compressed succesully.\n";
   }
   
-  private function processJs() 
+  private function processJs($options = '') 
   {
     $options          = $this->_options;
     $options['type']  = 'js';
@@ -99,7 +100,8 @@ EOF;
     $output           = null;
     $yui              = new slYUICompressor($this->yuipath,$this->dir . '/tmp',$options);
     $dir              = $this->dir . "/js/";
-    $subdir           = $this->subdir;   
+    $subdir           = $this->subdir;
+    $slgzcompress     = new slGZCompress;
     
     foreach($js as $script)
     {
@@ -107,32 +109,45 @@ EOF;
       {
         if (preg_match('%^http?://%', $file))
         {
-          $yui->addFile($file); 
+          $yui->addFile($file);
+          $slgzcompress->addFile($file);
         }
         else
         {
           $yui->addFile($dir . $file);
+          $slgzcompress->addFile($dir . $file);
         }
       }
       
       if (isset($script['version']) && $script['version'] != 0)
       {
-        $filename = $script['name'].'.'.$script['version'].'.min.js';
+        $filename   = $script['name'].'.'.$script['version'].'.min.js';
+        $gfilename  = $script['name'].'.'.$script['version'].'.jgz';
       }
       else
       {
         $filename = $script['name'].'.min.js';
+        $gfilename  = $script['name'].'.jgz';
       }
       
+      // yuicompressor stuff
       $yui->setOption('filename', $dir . $subdir . $filename);
       $output .= $yui->compress();
       $yui->clear();
+      
+      // gzip stuff
+      $gzip = $slgzcompress->compress($options['level']);
+      $file = $dir . $subdir . $gfilename;
+      $fh   = fopen($file, 'w') or die("Can't create new file");
+      
+      fwrite($fh, $gzip);
+      $slgzcompress->clear();
     }
     
     return $output;
   }
   
-  private function processCss() 
+  private function processCss($options) 
   {
     $options          = $this->_options;
     $options['type']  = 'css';
@@ -148,26 +163,38 @@ EOF;
       {
         if (preg_match('%^http?://%', $file))
         {
-         $yui->addFile($file); 
+          $yui->addFile($file);
+          $slgzcompress->addFile($file);
         }
         else
         {
           $yui->addFile($dir . $file);
+          $slgzcompress->addFile($dir . $file);
         }
       }
       
       if (isset($script['version']) && $script['version'] != 0)
       {
-        $filename = $script['name'].'.'.$script['version'].'.min.css';
+        $filename   = $script['name'].'.'.$script['version'].'.min.css';
+        $gfilename  = $script['name'].'.'.$script['version'].'.min.jgz';
       }
       else
       {
-        $filename = $script['name'].'.min.css';
+        $filename   = $script['name'].'.min.css';
+        $gfilename  = $script['name'].'.min.jgz';
       }
       
       $yui->setOption('filename', $dir . $subdir . $filename);
       $output .= $yui->compress();
       $yui->clear();
+      
+      // gzip stuff
+      $gzip = $slgzcompress->compress($options['level']);
+      $file = $dir . $subdir . $gfilename;
+      $fh   = fopen($file, 'w') or die("Can't create new file");
+      
+      fwrite($fh, $gzip);
+      $slgzcompress->clear();
     }
     
     return $output;
