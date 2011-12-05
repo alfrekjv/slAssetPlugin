@@ -16,7 +16,9 @@ function sl_include_stylesheets() {
   $env      = sfConfig::get('sf_environment');
   $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
   $cdn_host = sfConfig::get('app_cdn_host');
-  $cdn      = isset($cdn_host) ? "http://" . $cdn_host . "/css/" : '';
+  $secured  = sfContext::getInstance()->getRequest()->isSecure();
+  $protocol = $secured ? 'https://' : 'http://';
+  $cdn      = isset($cdn_host) ? $protocol . $cdn_host . "/css/" : '';
   
   if ($env == 'prod')
   {
@@ -55,7 +57,9 @@ function sl_include_javascripts() {
   $env      = sfConfig::get('sf_environment');
   $context  = sfContext::getInstance()->getModuleName() . "/" .sfContext::getInstance()->getActionName();
   $cdn_host = sfConfig::get('app_cdn_host');
-  $cdn      = isset($cdn_host) ? "http://" . $cdn_host ."/js/" : '';
+  $secured  = sfContext::getInstance()->getRequest()->isSecure();
+  $protocol = $secured ? 'https://' : 'http://';
+  $cdn      = isset($cdn_host) ? $protocol . $cdn_host . "/js/" : '';
   
   if ($env == 'prod')
   {
