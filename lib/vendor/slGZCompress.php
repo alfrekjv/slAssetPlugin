@@ -10,11 +10,15 @@
  */
 class slGZCompress
 {
+  private $temp_files_dir;
   private $files    = array();
   private $string   = '';
   private $filename = '';
   
-  function __construct() { }
+  function __construct($temp_files_dir = '/tmp')
+  {
+    $this->temp_files_dir = $temp_files_dir;
+  }
 
   // add a file or array of files (absolute path) to be compressed
   function addFile($file)
@@ -80,9 +84,17 @@ class slGZCompress
       echo $e->getMessage();
     }
     
-    $gz = gzopen($filename, 'w');
+    $input_hash = sha1($this->string);
+    $file       = $this->temp_files_dir . '/' . $input_hash . '.txt';
+    $fh         = fopen($file, 'w') or die("Can't create new file");
+    
+    fwrite($fh, $this->string);
+    exec("gzip -9 -c {$file} > {$filename}");
+    unlink($file);
+    
+    /*$gz = gzopen($filename, 'w');
     gzwrite($gz, $this->string);
-    gzclose($gz);
+    gzclose($gz);*/
     
     //return gzcompress($this->string, $level);
   }
