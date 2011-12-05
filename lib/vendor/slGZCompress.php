@@ -64,7 +64,7 @@ class slGZCompress
    * @author Senico Labs, LLC
    * @author Alfredo Juarez
    */
-  function compress($filename, $level = 9)
+  function compress($filename = '', $level = 9)
   {
     // read the input
     try
@@ -92,9 +92,9 @@ class slGZCompress
     exec("gzip -9 -c {$file} > {$filename}");
     unlink($file);*/
     
-    /*$gz = gzopen($filename, 'w');
+    $gz = gzopen($filename, 'w');
     gzwrite($gz, $this->string);
-    gzclose($gz);*/
+    gzclose($gz);
     
     return gzcompress($this->string, $level);
   }
