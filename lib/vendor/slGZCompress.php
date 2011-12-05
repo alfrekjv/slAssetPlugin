@@ -84,17 +84,17 @@ class slGZCompress
       echo $e->getMessage();
     }
     
-    /*$input_hash = sha1($this->string);
+    $input_hash = sha1($this->string);
     $file       = $this->temp_files_dir . '/' . $input_hash . '.txt';
     $fh         = fopen($file, 'w') or die("Can't create new file");
     
     fwrite($fh, $this->string);
     exec("gzip -9 -c {$file} > {$filename}");
-    unlink($file);*/
+    unlink($file);
     
-    $gz = gzopen($filename, 'w');
+    /*$gz = gzopen($filename, 'w');
     gzwrite($gz, $this->string);
-    gzclose($gz);
+    gzclose($gz);*/
     
     return gzcompress($this->string, $level);
   }
