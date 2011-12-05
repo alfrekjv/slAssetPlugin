@@ -57,6 +57,7 @@ function sl_include_stylesheets()
   }
   else
   {
+    $html = '';
     foreach($config as $position => $script)
     {
       if ($position == $context || $position == 'default') 
@@ -67,6 +68,8 @@ function sl_include_stylesheets()
         }
       }
     }
+    
+    echo $html;
   }
 }
 
@@ -117,6 +120,7 @@ function sl_include_javascripts()
   }
   else
   {
+    $html = '';
     foreach($config as $position => $script)
     {
       if ($position == $context || $position == 'default') 
@@ -127,6 +131,8 @@ function sl_include_javascripts()
         }
       }
     }
+    
+    echo $html;
   }
 }
 
