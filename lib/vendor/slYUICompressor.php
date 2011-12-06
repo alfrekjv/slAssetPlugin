@@ -205,10 +205,8 @@ class slYUICompressor
 
     // add line breaks to show errors in an intelligible manner
     $flattened_output = implode("\n", $raw_output);
-
-    // clean up (remove temp file)
-    unlink($file);
-
+    fclose($fh);
+    
     // return compressed output
     return $flattened_output;
   }
