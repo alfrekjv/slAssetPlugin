@@ -13,7 +13,6 @@ class slYUICompressor
     
   // absolute path to YUI jar file.
   private $jar_path;
-  private $temp_files_dir;
   private $files    = array();
   private $string   = '';
   private $options  = array
@@ -29,10 +28,9 @@ class slYUICompressor
                       );
     
   // construct with a path to the YUI jar and a path to a place to put temporary files
-  function __construct($jar_path, $temp_files_dir, $options = array())
+  function __construct($jar_path, $options = array())
   {
-    $this->JAR_PATH       = $jar_path;
-    $this->temp_files_dir = $temp_files_dir;
+    $this->JAR_PATH = $jar_path;
 
     foreach ($options as $option => $value)
     {
@@ -102,9 +100,7 @@ class slYUICompressor
     }
     
     // create single file from all input
-    $input_hash = sha1($this->string);
-    $file       = $this->temp_files_dir . '/' . $input_hash . '.txt';
-    $fh         = fopen($file, 'w') or die("Can't create new file");
+    $fh         = tmpfile();
     $type       = (strtolower($this->options['type']) == "css" ? "css" : "js");
     $charset    = isset($this->options['charset']) ? $this->options['charset'] : 'UTF-8';
         
