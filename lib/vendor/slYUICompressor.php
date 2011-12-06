@@ -100,7 +100,9 @@ class slYUICompressor
     }
     
     // create single file from all input
-    $fh         = tmpfile();
+    //$fh         = tmpfile();
+    $file       = tempnam(sys_get_temp_dir(), 'sl');
+    $fh         = fopen($file,'w');
     $type       = (strtolower($this->options['type']) == "css" ? "css" : "js");
     $charset    = isset($this->options['charset']) ? $this->options['charset'] : 'UTF-8';
         
