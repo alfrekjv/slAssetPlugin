@@ -80,7 +80,8 @@ class slGZCompress
       echo $e->getMessage();
     }
     
-    $fh = tmpfile();
+    $file = tempnam(sys_get_temp_dir(), 'sl');
+    $fh   = fopen($file,'w');
     fwrite($fh, $this->string);
     exec("gzip -9 -c {$file} > {$filename}");
     fclose($fh);

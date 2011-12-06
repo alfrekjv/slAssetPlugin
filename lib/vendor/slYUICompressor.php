@@ -100,16 +100,15 @@ class slYUICompressor
     }
     
     // create single file from all input
-    //$fh         = tmpfile();
-    $file       = tempnam(sys_get_temp_dir(), 'sl');
-    $fh         = fopen($file,'w');
-    $type       = (strtolower($this->options['type']) == "css" ? "css" : "js");
-    $charset    = isset($this->options['charset']) ? $this->options['charset'] : 'UTF-8';
+    $file     = tempnam(sys_get_temp_dir(), 'sl');
+    $fh       = fopen($file,'w');
+    $type     = (strtolower($this->options['type']) == "css" ? "css" : "js");
+    $charset  = isset($this->options['charset']) ? $this->options['charset'] : 'UTF-8';
         
     fwrite($fh, $this->string);
     
     // start with basic command
-    $cmd        = "java -Xmx32m -jar {$this->JAR_PATH} {$file} --charset {$charset}";
+    $cmd      = "java -Xmx32m -jar {$this->JAR_PATH} {$file} --charset {$charset}";
     
     /**
      * 
